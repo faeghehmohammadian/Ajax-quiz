@@ -1,11 +1,12 @@
 
-const url="quiz.json";
+
 
 window.addEventListener('DOMContentLoaded', ()=>{
     loadQuestions();
 })
 function loadQuestions(){
-    fetch(url).than(req=>reportError.json())
+    const response=fetch("http://localhost:3000/download")
+    .then(res => res.json())
     .then((data)=>{
         console.log(data)
     })

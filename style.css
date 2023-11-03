@@ -1,0 +1,15 @@
+body{
+    background-color: rgb(39, 38, 38);
+    display: flex;
+}
+.mainbox{
+    width: 300;
+    height: 400;
+    background-color: rgb(61, 66, 61);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    border-radius: 10px;
+    color: ghostwhite;
+}
