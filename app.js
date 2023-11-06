@@ -3,8 +3,10 @@ let cur=0;
 const mainBox=document.querySelector(".mainbox")
 const startButton=document.querySelector(".startButton")
 const output=document.querySelector(".output")
+const score=document.querySelector(".score")
 const holder=[];
 const quesitons=[];
+let sco=0;
 
 window.addEventListener('DOMContentLoaded', ()=>{
     loadQuestions();
@@ -14,6 +16,7 @@ startButton.addEventListener('click',(event)=>{
     startButton.style.display='none';
 })
 function newQuestion(){
+    score.innerHTML=`${cur+1} / ${quesitons.length}`
     const el=quesitons[cur]
     el.options.sort(()=>{return 0.5 - Math.random()})
     output.innerHTML='';
@@ -34,10 +37,17 @@ function newQuestion(){
     output.append(que1);
     output.append(ans1);
 }
+function showscore(){
+    output.innerHTML=`Your Score: ${sco} / ${quesitons.length}`
+    score.innerHTML=''
+    startButton.textContent='Try Again'
+    startButton.addEventListener('click',function(){location.reload()})
+}
 function selOption(e){
     endTurn();
     if(e.target.correct){
-        e.target.style.backgroundColor= '#90ee90'
+        e.target.style.backgroundColor= '#90ee90';
+        sco++;
     }
     else{
         e.target.style.backgroundColor= '#f08080'
@@ -50,8 +60,15 @@ function endTurn(){
         el.style.backgroundColor='rgb(116, 121, 116)'
     })
     startButton.style.display='block';
-    startButton.textContent='Next';
+    
     cur++ ;
+    if(cur>=quesitons.length){
+        startButton.textContent='See Score';
+        startButton.addEventListener('click',showscore)
+
+    }else{
+        startButton.textContent='Next';
+    }
 }
 
 
