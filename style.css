@@ -19,7 +19,7 @@ body{
     border-radius: 5px;
     color: rgb(61,66,61);
     padding: 10px;
-    width: 90%;
+    width: 60%;
 }
 .question{
     padding: 10px;
@@ -43,4 +43,10 @@ body{
 }
 .score{
     justify-content: end;
+}
+.nextButton{
+    border-radius: 5px;
+    color: rgb(61,66,61);
+    padding: 10px;
+    width: 50%;
 }

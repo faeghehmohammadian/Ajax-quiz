@@ -2,6 +2,7 @@
 let cur=0;
 const mainBox=document.querySelector(".mainbox")
 const startButton=document.querySelector(".startButton")
+const nextButton=document.querySelector(".nextButton")
 const output=document.querySelector(".output")
 const score=document.querySelector(".score")
 const holder=[];
@@ -10,12 +11,18 @@ let sco=0;
 
 window.addEventListener('DOMContentLoaded', ()=>{
     loadQuestions();
+    nextButton.style.display='none';
 })
 startButton.addEventListener('click',(event)=>{
     newQuestion();
     startButton.style.display='none';
+    
+})
+nextButton.addEventListener('click',(event)=>{
+    newQuestion();
 })
 function newQuestion(){
+    nextButton.style.visibility= "hidden";
     score.innerHTML=`${cur+1} / ${quesitons.length}`
     const el=quesitons[cur]
     el.options.sort(()=>{return 0.5 - Math.random()})
@@ -36,14 +43,16 @@ function newQuestion(){
     })
     output.append(que1);
     output.append(ans1);
+    
 }
 function showscore(){
-    output.innerHTML=`Your Score: ${sco} / ${quesitons.length}`
-    score.innerHTML=''
-    startButton.textContent='Try Again'
-    startButton.addEventListener('click',function(){location.reload()})
+    output.innerHTML=`Your Score: ${sco} / ${quesitons.length}`;
+    score.innerHTML='';
+    nextButton.textContent='Try Again';
+    nextButton.addEventListener('click',function(){location.reload()});
 }
 function selOption(e){
+    nextButton.style.visibility= "visible";
     endTurn();
     if(e.target.correct){
         e.target.style.backgroundColor= '#90ee90';
@@ -55,19 +64,20 @@ function selOption(e){
     e.target.style.color='rgb(61, 66, 61)';
 }
 function endTurn(){
+    
     holder.forEach((el)=>{
         el.removeEventListener('click',selOption);
         el.style.backgroundColor='rgb(116, 121, 116)'
     })
-    startButton.style.display='block';
+    nextButton.style.display='block';
     
     cur++ ;
     if(cur>=quesitons.length){
-        startButton.textContent='See Score';
-        startButton.addEventListener('click',showscore)
+        nextButton.textContent='See Score';
+        nextButton.addEventListener('click',showscore)
 
     }else{
-        startButton.textContent='Next';
+        nextButton.textContent='Next';
     }
 }
 
