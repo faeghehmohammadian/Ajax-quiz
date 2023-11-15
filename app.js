@@ -1,10 +1,9 @@
-
-let cur=0;
 const mainBox=document.querySelector(".mainbox")
 const startButton=document.querySelector(".startButton")
 const nextButton=document.querySelector(".nextButton")
 const output=document.querySelector(".output")
 const score=document.querySelector(".score")
+let cur=0;
 const holder=[];
 const quesitons=[];
 let sco=0;
@@ -16,7 +15,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
 startButton.addEventListener('click',(event)=>{
     newQuestion();
     startButton.style.display='none';
-    
 })
 nextButton.addEventListener('click',(event)=>{
     newQuestion();
@@ -43,9 +41,9 @@ function newQuestion(){
     })
     output.append(que1);
     output.append(ans1);
-    
 }
 function showscore(){
+    nextButton.style.visibility= "visible";
     output.innerHTML=`Your Score: ${sco} / ${quesitons.length}`;
     score.innerHTML='';
     nextButton.textContent='Try Again';
@@ -64,28 +62,24 @@ function selOption(e){
     e.target.style.color='rgb(61, 66, 61)';
 }
 function endTurn(){
-    
     holder.forEach((el)=>{
         el.removeEventListener('click',selOption);
         el.style.backgroundColor='rgb(116, 121, 116)'
     })
     nextButton.style.display='block';
-    
     cur++ ;
     if(cur>=quesitons.length){
         nextButton.textContent='See Score';
         nextButton.addEventListener('click',showscore)
-
     }else{
         nextButton.textContent='Next';
     }
 }
-
-
 function loadQuestions(){
     const response=fetch("http://localhost:3000/download")
     .then(res => res.json())
     .then((data)=>{
+        //console.log(data)
         data.forEach((el) => {
             let answers=[];
             el.answers.forEach((ans)=>{
@@ -100,12 +94,14 @@ function loadQuestions(){
                 "correcr": true
             }
             answers.push(tempObj)
+            //console.log(answers);
             let mainObj={
                 "question": el.question,
                 "options": answers
             }
             quesitons.push(mainObj)
-            //console.log(quesitons)
+            
         });
+        console.log(quesitons)
     })
 }
